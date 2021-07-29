@@ -12,7 +12,7 @@ function! Compile()
 endfunction
 
 function! Read_and_Parse()
-	if expand('%:e') != 'c'
+	if expand('%:e') != 'c' && expand('%:e') != 'h'
 		return
 	endif
 	execute ':silent call Compile()'
@@ -23,7 +23,6 @@ function! Read_and_Parse()
 
 	let line_type_pairs = []
 	let id = 0
-	let ids = []
 	for line in file_buffer
 
 		let line_n = matchstr(line, line_expr)
@@ -32,7 +31,6 @@ function! Read_and_Parse()
 		if line_n || type_n
 
 			let id = id + 1
-			let ids += [id]
 			let descr = line[strlen(descr):]
 			let line_type_pairs += [[id, line_n, type_n, descr]]
 		endif
