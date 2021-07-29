@@ -1,0 +1,16 @@
+*C-Sorcery*			C-Sorcery
+
+This Plugin Compiles the current buffer and parses the compiler generated error, warning, notes
+and uses vim-signs(:h sign) to indicate those on the line number they occurned on with color codes.
+
+The Repo is at https://github.com/QLavi/C-Sorcery
+
+------------------------------------------------------------------------------
+VARIABLES
+
+g:sorcery_flags
+	You can specify specific compiler flags to for include path warning plags
+	and it will generate the object file based on those
+
+	let g:sorcery_flags = ' -Wall -g -I/path/to/includes'
+	default value is '-Wall -g'
