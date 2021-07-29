@@ -7,3 +7,6 @@ Use Whatever Plugin-Manager you have
 
 use `g:sorcery_flags` to specify your compiler flags.
 
+press `cmp` to compile the current buffer\
+press `cls` to clear the signs
+

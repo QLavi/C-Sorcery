@@ -14,3 +14,9 @@ g:sorcery_flags
 
 	let g:sorcery_flags = ' -Wall -g -I/path/to/includes'
 	default value is '-Wall -g'
+
+KEYBINDS
+cmp
+	compiles current buffer with specifice compiler flags
+cls
+	clears all the sign
