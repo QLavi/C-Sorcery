@@ -8,12 +8,15 @@ endfunction
 
 let g:sorcery_flags = ' -Wall -g '
 function! Compile()
-	execute ':!gcc -c %'.g:sorcery_flags.' 2> csor798'
+	execute ':!gcc -c %'.g:sorcery_flags.' 2> .tmp'
 endfunction
 
 function! Read_and_Parse()
+	if expand('%:e') != 'c'
+		return
+	endif
 	execute ':silent call Compile()'
-	let file_buffer = readfile('csor798', '')
+	let file_buffer = readfile('.tmp', '')
 
 	let line_expr = '\v[0-9]+:'
 	let type_expr = '\v(error|warning|note)'
@@ -55,5 +58,5 @@ function! Check()
 endfunction
 
 call Generate_Signs()
-map ss :w<cr> \| :call Check()<cr>
+map cmp :call Check()<cr>
 map cls :call sign_unplace('*')<cr>
