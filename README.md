@@ -5,8 +5,6 @@ and shows them on the line those "Things" occured on
 
 Use Whatever Plugin-Manager you have
 
-use `g:sorcery_flags` to specify your compiler flags.
+use `g:csor_build_cmd` to specify your build system + flags (eg. make -F=main.cc).
 
 press `cmp` to compile the current buffer\
-press `cls` to clear the signs
-
