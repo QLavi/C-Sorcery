@@ -12,8 +12,8 @@ g:sorcery_flags
 	You can specify specific compiler flags to for include path warning plags
 	and it will generate the object file based on those
 
-	let g:sorcery_flags = ' -Wall -g -I/path/to/includes'
-	default value is '-Wall -g'
+	let g:csor_build_cmd = 'make FILE=main.cc TARGET=a.out'
+    default value is 'make'
 
 KEYBINDS
 cmp
