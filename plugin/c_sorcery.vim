@@ -19,10 +19,12 @@ function! Read_Output()
         return
     endif
 
-    let name_expr = '\v[a-zA-Z0-9]+\.(.cc|.c|.cpp)'
+    let extensions = '\.(cc|cpp|cpp|h|hpp)'
+    let name_expr = '\v[a-zA-Z0-9]+'..extensions
     let ln_expr = '\v[0-9]+'
     let type_expr = '\v(error|warning)'
     let sub_expr = name_expr..':'..ln_expr..':'..ln_expr..':'..' '..type_expr..': '
+    let incl_expr = '\v[0-9]+:$'
 
     let id = 0
     for line in compiler_output
@@ -30,10 +32,20 @@ function! Read_Output()
         let ln = matchstr(line, ln_expr)
         let type = matchstr(line, type_expr)
         let descr = matchstr(line, sub_expr)
+        let incl_ln = matchstr(line, incl_expr)
+        let incl_ln = incl_ln[:-2]
+
+        if empty(incl_ln) == 0
+            call sign_place(id, '', 'warning', name, {'lnum': incl_ln})
+            let s:descr_list += [[incl_ln, 'error in included header']]
+        endif
+
         if empty(descr)
             continue
         endif
-        call sign_place(id, '', type, '%', {'lnum': ln})
+
+        call sign_place(id, '', type, name, {'lnum': ln})
+
         let id = id + 1
         let s:descr_list += [[ln, line[strlen(descr):]]]
     endfor
@@ -51,4 +63,4 @@ endfunction
 call Generate_Signs()
 
 map cmp :call Give_Descr()<cr>
-autocmd BufWritePost *.cc :call Gen_Compiler_Ouptut()
+autocmd BufWritePost *.cc,*.cpp,*.hpp,*.h :call Gen_Compiler_Ouptut()
